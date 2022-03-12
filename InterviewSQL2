@@ -1,0 +1,17 @@
+Find the business and review text that received the highest number of 'cool' votes
+-- assumptions - tie situation, I would be keeping tie.
+
+step 1 -- order by count('cool')
+step 2 -- select business_name, review_text
+select 3 - top 1 using SQL windowing function
+
+with cte as 
+(
+select top business_name as [business_name], review_text as [review_text] ,
+rank() over (partition by business_name, review_text order by cool desc) as [rank]
+from yelp_reviews
+) select business_name, review_text 
+from cte
+where rank = 1 
+
+-- output table - business_name | review_text
