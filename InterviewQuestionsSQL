@@ -1,0 +1,24 @@
+1) Read a question slowly
+2) State any assumptions that needs to be addressed to solve the question.
+2) Write down the steps to solve the query on white board in simple english language.
+3) Write the actual query.
+4) Test the query.
+
+-- Question1)
+You are provided a table with page_id, event_timestamp and flag - on/off.
+Find the number of pages that are currently on.
+
+Assumption - Select primary key of this table. 
+(page_id, event timestamp)
+are primary keys that means each combination of them is unique.
+
+step 1 - filter page_ids based on current event timestamp
+step 2 - filter pages that are having flag = on
+step 3 - count num of pages.
+
+select count(*) as num_on
+from t
+where event_timestamp = now()
+and flag = 'on'
+
+step 4 - How do you plan to improve the efficiency of the current code? 
