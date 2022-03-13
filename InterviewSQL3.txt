@@ -1,0 +1,22 @@
+Find ot the number of conversations (send or received) by each user each by date.
+
+-- output table = date, user, message_count
+
+-- assumption - Because there is send and receive, there might be duplicates , use union all
+
+-- get message count for send
+-- get message count for receive
+-- union
+
+(select 
+date, 
+user1,
+msg_count
+from fb_messages)
+union all
+(select 
+date, 
+user2,
+msg_count
+from fb_messages)
+order by date
