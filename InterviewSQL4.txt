@@ -1,0 +1,15 @@
+write a SQL query to find out the overall friend acceptance rate for each day.
+
+-- input table friend_req : datestamp | sender | receiver | action = sent, accepted, rejected etc
+
+-- output table - datestamp | rate = (accepted/total)*100
+
+-- assumption - total = sent + accepted + rejected
+select datestamp,
+	count(case when action = 'accepted' then 1
+	else null end) * 1.00 / count(action) *100 as perc_acceptance
+from friend_req
+group by datestamp
+
+-- note
+-- integer division by sql rounds the fraction and will not return -- real value hence use * 1.00 
