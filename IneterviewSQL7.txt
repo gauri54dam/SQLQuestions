@@ -1,0 +1,21 @@
+--Employee Project Budgets
+
+--Find the top five most expensive projects by the amount of budget allocated to each employee on the project. 
+--Exclude projects with 0 employess. 
+--Assume each employee works on only one project. 
+--The o/p should be the project title and the budget that is allocated to each employeeie a budget-to-emp ratio.
+--Display the top 5 projects with the highest budget-to-employee ration first.
+
+-- o/p - project title | budget_emp_ration
+
+
+
+select 
+	title, 
+	budget/count(emp_id) as [ratio],
+from ms_projects p
+join ms_emp_projects e
+	on e.project_id = p.id
+group by project_id, budget
+order by 2 desc
+limit 5
