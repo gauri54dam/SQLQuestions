@@ -1,0 +1,28 @@
+-- Download Facts - Microsoft
+
+-- assumption - one user has one account_id
+-- o/p = date | non-paying downloads, paying downloads
+
+with cte as(
+select 
+	date, 
+	sum(case when paying_customer = 'no' then downloads end as non_paying)
+	as non_paying
+	sum(case when paying_customer = 'yes' then downloads end as paying)
+	as paying
+from table ms_user_dimention u
+join ms_acc_dimention a
+on u.acc_id = a.acc_id
+join ms_download_facts d
+on u.user_id = d.user_id
+join ms_download_facts d
+on u.user_id = d.user_id
+group by date
+) select * 
+from cte 
+where non_paying > paying
+order by date
+
+
+
+
