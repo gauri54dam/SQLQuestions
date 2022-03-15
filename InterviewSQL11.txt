@@ -1,0 +1,42 @@
+Growth of Airbnb
+
+--Estimate the growth of Airbnb each year using the number of hosts registered as the growth metric.
+
+--The rate of growth is calculated by taking (( no of hosts registered in the current year 
+-- no of hosts registered in the previous year )/ the no of hosts registered in the previous tear) * 100
+
+--Output the year, no of hosts in the current year, number of hosts in the previous year, and the current rate of growth.
+
+--Round the rate of growth to the nearest percent and order the result in the ascending order based on the year.
+
+Assume that the dataset consists only of unique hosts, meaning there are no duplicate hosts listed.
+
+-- i/p Table : airbnb_search_details
+
+-- o/p Table : year | no_of_hosts_curr | no_of_hosts_prev | rate
+
+
+-- assumption - rate of growth for the first year? Ask interviewer about what should we do about such scenario? -- left join
+
+-- get year | num_hosts - in one cte
+-- left self join on prev_year = current_year - 1
+-- get columns
+-- growth rate 
+-- order 
+
+
+with cte as 
+(
+select year(cast(host_since) as Date) as [year], count(id) as [no_of_hosts_curr]
+from airbnb_search_details a
+group by 1
+)
+select 
+	c.year, 
+	c.no_of_hosts_curr, 
+	p.no_of_hosts_curr as [no_of_hosts_prev],
+	round(((c.no_of_hosts_curr - no_of_hosts_prev)*1.00/no_of_hosts_prev)*100) as [growth_rate]
+from cte c
+left join cte p
+	on p.year = c.year - 1 
+order by c.year
