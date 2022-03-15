@@ -1,0 +1,18 @@
+-- Google
+-- To find activity percentile 
+
+Find the email activity percentile for each user.
+The user with the highest number of emails sent will have a percentile of 1, and so on.
+Outout the user, total emails, and their activity percentile, and order records by the total emails in descending order.
+
+i/p table - google_gmail_emails
+o/p - user | total emails | activity percentile
+
+
+ 
+select 
+	from_user, 
+	count(from_user) as [total_emails],
+	row_number() over (order by sum(from_user) desc) as [ntile]
+from google_gmail_emails e
+group by from_user
